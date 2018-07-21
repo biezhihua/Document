@@ -2,14 +2,20 @@
 
 Jetpack是一系列库、工具、架构组成的，帮助开发人员快速方便的构建Anroid App。
 
-[图片](https://github.com/googlesamples/android-sunflower/raw/master/screenshots/phone_plant_detail.png)
+![这里写图片描述](https://img-blog.csdn.net/20180721183545677?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JpZXpoaWh1YQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+https://github.com/googlesamples/android-sunflower
+
+https://github.com/biezhihua/Document
 
 ## 目标
 
 1) 加速开发 
 > 各个组件间相互独立，又可以彼此配合工作。使用kotlin特性能让生产效率更高。
+
 2) 消除无用代码
 > Android Jetpack管理各种枯燥的行为，例如后台任务、导航、生命周期管理，能让开发人员聚焦于App业务开发。
+
 3) 构建高质量、健壮的app
 > Android Jetpack组件会有更少的Crash和内存泄露以及向后兼容性。
 
@@ -21,13 +27,16 @@ Jetpack是一系列库、工具、架构组成的，帮助开发人员快速方�
 
 1) AppCompat
 > 兼容旧版本的Anroid
+
 2) Android KTX
 > 帮助写出更简洁的Kotlin代码
 > https://developer.android.com/kotlin/ktx
 > https://github.com/googlesamples/android-sunflower
 > https://www.youtube.com/watch?v=r_19VZ0xRO8&feature=youtu.be
+
 2) Mulidex
 > 提供多Dex支持(65535)
+
 3) Test
 > Android下的单元测试与UI测试框架
 
@@ -37,20 +46,28 @@ Jetpack是一系列库、工具、架构组成的，帮助开发人员快速方�
 
 1) Data Binding
 > 声明性地将可观察数据绑定到UI元素。
+
 2) Lifecycles
 > 管理Activity和Fragment的生命周期
+
 3) LiveData
 > 当底层数据改变时通知View
+
 4) Naviation
 > 处理app内部的导航
+
 5) Paging
 > 逐步从数据园中加载需要的数据信息
+
 6) Room
 > 流畅的SQLite数据库访问
+
 7) ViewModel
 > 以可感知生命周期的方式来管理与UI相关的数据
+
 8) WorkManager
 > 管理Android后台任务
+
 
 ### 行为
 
@@ -58,17 +75,22 @@ Jetpack是一系列库、工具、架构组成的，帮助开发人员快速方�
 
 1) Download Manager
 > 安排和管理大量的下载任务
+
 2) Media & Playback
 > 向后兼容的API，用于媒体播放和路由
 > MediaCodec、MediaPlayer
+
 3) Notifications
 > 提供向后兼容的通知API
 > NotificationCompat.Builder
+
 5) Permissions
 > 用于检查和请求应用权限的兼容性API
+
 7) Sharing
 > 提供一个分享操作
 > ShareActionProvider
+
 8) Slices
 > 提供能在App之外展示(Google Search App 和 Googel Assistant）App数据的UI元素
 
@@ -76,24 +98,34 @@ Jetpack是一系列库、工具、架构组成的，帮助开发人员快速方�
 
 1) Animation & Transitions
 > 控件动画
+
 2) Auto
 >　汽车
+
 3) Emoji
 > 提供兼容的表情API
 > EmojiCompat
+
 4) Fragment
 > 提供可组合UI的基本单元
+
 5) Layout
 > 布局
+
 6) Palette
 > 从调色板中提取有用信息
+
 8) TV
 > 帮助开发TV App
+
 9)  Wear OS by Google
 > 帮助开发手表 App
 
 
 ## WorkManager
+
+https://developer.android.com/topic/libraries/architecture/workmanager#chained
+https://developer.android.com/reference/androidx/work/WorkManager
 
 WorkManager API可以轻松指定可延迟的异步任务以及何时运行它们。
 
@@ -109,161 +141,172 @@ WorkManager根据设备API级别和应用程序状态等因素选择适当的方
 
 **一些重要的API如下：**
 
-1) Worker: 指定您需要执行的任务。 WorkManager API包含一个抽象的Worker类。您可以扩展此类并在此处执行工作。
-2) WorkRequest: 代表一项单独的任务。 WorkRequest对象至少指定应该执行任务的Worker类。但是，您还可以向WorkRequest对象添加详细信息，指定诸如运行任务的环境之类的内容。每个WorkRequest都有一个自动生成的唯一ID;您可以使用ID执行取消排队任务或获取任务状态等操作。WorkRequest是一个抽象类;在您的代码中，您将使用直接子类之一，OneTimeWorkRequest或PeriodicWorkRequest。
-3) WorkManager: 排队和管理工作请求。您将WorkRequest对象传递给WorkManager以将任务排入队列。 WorkManager以这样一种方式安排任务，即分散系统资源的负载，同时遵守您指定的约束。
-4) WorkStatus:包含有关特定任务的信息。 WorkManager为每个WorkRequest对象提供LiveData。
+1) Worker: 指定您需要执行的任务。 
+> WorkManager API包含一个抽象的Worker类。可以扩展此类并在此处执行工作。
+
+2) WorkRequest: 代表一项单独的任务。
+>  WorkRequest对象至少指定应该执行任务的Worker类。可以向WorkRequest对象添加详细信息，指定诸如运行任务的环境之类的内容。每个WorkRequest都有一个自动生成的唯一ID;可以使用ID执行取消排队任务或获取任务状态等操作。WorkRequest是一个抽象类;在代码中，将使用直接子类之一，OneTimeWorkRequest或PeriodicWorkRequest。
+
+3) WorkManager: 排队和管理工作请求。
+> 将WorkRequest对象传递给WorkManager以将任务排入队列。 WorkManager以这样一种方式安排任务，即分散系统资源的负载，同时遵守指定的约束。
+
+4) WorkStatus:包含有关特定任务的信息。 
+> WorkManager为每个WorkRequest对象提供LiveData。
 
 **工作流程：**
 
 ```
+@RequiresApi(Build.VERSION_CODES.M)
+private fun normalTask() {
+    // 创建任务约束
+    val constraints = Constraints.Builder()
+            .setRequiresDeviceIdle(true)
+            .setRequiresCharging(true)
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresBatteryNotLow(true)
+            .setRequiresStorageNotLow(true)
+            .build()
+
+    // 创建一个工作任务
+    val workRequest = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .setConstraints(constraints)
+            .build()
+
+    // 将任务加入任务队列中
+    WorkManager.getInstance()?.enqueue(workRequest)
+
+    // 获取任务的状态
+    WorkManager.getInstance()
+            ?.getStatusById(workRequest.id)
+            ?.observe(this, Observer { workStatus ->
+
+                // 检查工作任务状态
+                if (workStatus != null && workStatus.state.isFinished) {
+                    Log.d("Work", "work state finish")
+                }
+            })
+
+    // 尝试去取消一个任务 （不确定一定能够成功，因为任务可能已经执行或者执行完毕）
+    val workId: UUID = workRequest.id
+    WorkManager.getInstance()
+            //                ?.cancelAllWork()
+            //                ?.cancelAllWorkByTag("")
+            ?.cancelWorkById(workId)
+}
 
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun normalTask() {
-        // 创建任务约束
-        val constraints = Constraints.Builder()
-                .setRequiresDeviceIdle(true)
-                .setRequiresCharging(true)
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresBatteryNotLow(true)
-                .setRequiresStorageNotLow(true)
-                .build()
+class MyWorker : Worker() {
 
-        // 创建一个工作任务
-        val workRequest = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .setConstraints(constraints)
-                .build()
+    override fun doWork(): Result {
 
-        // 将任务加入任务队列中
-        WorkManager.getInstance()?.enqueue(workRequest)
+        Log.d("Work", "do my work")
 
-        // 获取任务的状态
-        WorkManager.getInstance()
-                ?.getStatusById(workRequest.id)
-                ?.observe(this, Observer { workStatus ->
-
-                    // 检查工作任务状态
-                    if (workStatus != null && workStatus.state.isFinished) {
-                        Log.d("Work", "work state finish")
-                    }
-                })
-
-        // 尝试去取消一个任务 （不确定一定能够成功，因为任务可能已经执行或者执行完毕）
-        val workId: UUID = workRequest.id
-        WorkManager.getInstance()
-                //                ?.cancelAllWork()
-                //                ?.cancelAllWorkByTag("")
-                ?.cancelWorkById(workId)
+        return Result.SUCCESS
     }
-
-
-    class MyWorker : Worker() {
-
-        override fun doWork(): Result {
-
-            Log.d("Work", "do my work")
-
-            return Result.SUCCESS
-        }
-    }
+}
 ```
 
 **高级功能：**
 
 WorkManager API的核心功能可以创建简单，即发即弃的任务。除此之外，API还提供了先进的功能，可让设置更精细的请求。
 
-1) 重复的任务：
+1) 重复任务：
 ```
-    private fun recurringTask() {
-        // 创建Builder
-        val builder = PeriodicWorkRequest
-                .Builder(MyWorker::class.java, 12, TimeUnit.SECONDS)
+private fun recurringTask() {
+    // 创建Builder
+    val builder = PeriodicWorkRequest
+            .Builder(MyWorker::class.java, 12, TimeUnit.SECONDS)
 
-        // 创建任务
-        val workRequest = builder.build()
+    // 创建任务
+    val workRequest = builder.build()
 
-        // 加入任务队列中
-        WorkManager.getInstance()?.enqueue(workRequest)
-    }
-```
-2) 链式任务: 应用可能需要按特定顺序运行多个任务。 WorkManager允许创建和排队指定多个任务的工作序列，以及它们应运行的顺序。
-```
-    private fun chainedTask() {
-
-        val workA = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .build()
-        
-        val workA1 = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .build()
-        
-        val workA2 = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .build()
-        
-        val workA3 = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .build()
-
-        val workB = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .build()
-
-        val workC = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .build()   
-        
-        val workC1 = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .build()   
-        
-        val workC2 = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .build()
-
-        WorkManager.getInstance()
-                ?.beginWith(workA)
-                // Note: WorkManager.beginWith() returns a
-                // WorkContinuation object; the following calls are
-                // to WorkContinuation methods
-                ?.then(workB)    // FYI, then() returns a new WorkContinuation instance
-                ?.then(workC)
-                ?.enqueue()
-
-        WorkManager.getInstance()
-                // First, run all the A tasks (in parallel):
-                .beginWith(workA1, workA2, workA3)
-                // ...when all A tasks are finished, run the single B task:
-                .then(workB)
-                // ...then run the C tasks (in any order):
-                .then(workC1, workC2)
-                .enqueue()
-    }
+    // 加入任务队列中
+    WorkManager.getInstance()?.enqueue(workRequest)
+}
 ```
 
-3) 唯一工作序列: 可以让你将一些任务追加、替换、丢弃到已经进入排队状态的序列中
+2) 链式任务: 
+> 应用可能需要按特定顺序运行多个任务。 WorkManager允许创建和排队指定多个任务的工作序列，以及它们应运行的顺序。
 ```
-    private fun uniqueWorkSequencesTask() {
+private fun chainedTask() {
 
-        val workA = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .build()
+    val workA = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .build()
+    
+    val workA1 = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .build()
+    
+    val workA2 = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .build()
+    
+    val workA3 = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .build()
 
-        WorkManager.getInstance()
-                ?.beginUniqueWork("work", ExistingWorkPolicy.APPEND, workA)
-                ?.enqueue()
+    val workB = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .build()
 
-        WorkManager.getInstance()
-                ?.beginUniqueWork("work", ExistingWorkPolicy.KEEP, workA)
-                ?.enqueue()
+    val workC = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .build()   
+    
+    val workC1 = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .build()   
+    
+    val workC2 = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .build()
 
-        WorkManager.getInstance()
-                ?.beginUniqueWork("work", ExistingWorkPolicy.REPLACE, workA)
-                ?.enqueue()
-    }
+    WorkManager.getInstance()
+            ?.beginWith(workA)
+            // Note: WorkManager.beginWith() returns a
+            // WorkContinuation object; the following calls are
+            // to WorkContinuation methods
+            ?.then(workB)    // FYI, then() returns a new WorkContinuation instance
+            ?.then(workC)
+            ?.enqueue()
+
+    WorkManager.getInstance()
+            // First, run all the A tasks (in parallel):
+            .beginWith(workA1, workA2, workA3)
+            // ...when all A tasks are finished, run the single B task:
+            .then(workB)
+            // ...then run the C tasks (in any order):
+            .then(workC1, workC2)
+            .enqueue()
+}
 ```
-4) 标记任务：可以使用Tag对任务进行分组
+
+3) 唯一工作序列: 
+> 可以让你将一些任务追加、替换、丢弃已经进入排队状态的序列中
 ```
-    private fun taggedWorkTask() {
-        val task = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .addTag("task")
-                .build()
-    }
+private fun uniqueWorkSequencesTask() {
+
+    val workA = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .build()
+
+    WorkManager.getInstance()
+            ?.beginUniqueWork("work", ExistingWorkPolicy.APPEND, workA)
+            ?.enqueue()
+
+    WorkManager.getInstance()
+            ?.beginUniqueWork("work", ExistingWorkPolicy.KEEP, workA)
+            ?.enqueue()
+
+    WorkManager.getInstance()
+            ?.beginUniqueWork("work", ExistingWorkPolicy.REPLACE, workA)
+            ?.enqueue()
+}
 ```
-5) 为任务参数和获取返回值：为了获得更大的灵活性，您可以将参数传递给任务并让任务返回结果。传递和返回的值是键值对。如果使用的是链式任务，还可以将结果传入下一个任务中。
+
+4) 标记任务：
+> 可以使用Tag对任务进行分组
+```
+private fun taggedWorkTask() {
+    val task = OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .addTag("task")
+            .build()
+}
+```
+5) 为任务参数和获取返回值：
+> 为了获得更大的灵活性，您可以将参数传递给任务并让任务返回结果。传递和返回的值是键值对。如果使用的是链式任务，还可以将结果传入下一个任务中。
    
 ```
 fun Map<String, Int>.toWorkData(): Data {
@@ -273,26 +316,26 @@ fun Map<String, Int>.toWorkData(): Data {
 }
 ```
 
-    1. 要将参数传递给任务，请在创建WorkRequest对象之前调用WorkRequest.Builder.setInputData（）方法。
+ - 要将参数传递给任务，请在创建`WorkRequest`对象之前调用`WorkRequest.Builder.setInputData()`方法。
 
 ```
-    private fun inputDataOutputData() {
-        val myData: Data = mapOf(
-                "KEY_X_ARG" to 42,
-                "KEY_Y_ARG" to 421,
-                "KEY_Z_ARG" to 8675309)
-                .toWorkData()
+private fun inputDataOutputData() {
+    val myData: Data = mapOf(
+            "KEY_X_ARG" to 42,
+            "KEY_Y_ARG" to 421,
+            "KEY_Z_ARG" to 8675309)
+            .toWorkData()
 
-        // ...then create and enqueue a OneTimeWorkRequest that uses those arguments
-        val mathWork = OneTimeWorkRequest.Builder(MathWorker::class.java)
-                .setInputData(myData)
-                .build()
-        WorkManager.getInstance()?.enqueue(mathWork)
-    }
+    // ...then create and enqueue a OneTimeWorkRequest that uses those arguments
+    val mathWork = OneTimeWorkRequest.Builder(MathWorker::class.java)
+            .setInputData(myData)
+            .build()
+    WorkManager.getInstance()?.enqueue(mathWork)
+}
 ```
 
-    2. 该方法采用Data对象，您使用Data.Builder创建。 Worker类可以通过调用Worker.getInputData（）来访问这些参数。
-    3. 
+ - 该方法采用`Data`对象，使用`Data.Builder`创建。 Worker类可以通过调用`Worker.getInputData()`来访问这些参数。
+
 ```
 // Define the parameter keys:
 const val KEY_X_ARG = "X"
@@ -327,15 +370,16 @@ class MathWorker : Worker() {
 }
 ```
 
-    3. 要输出返回值，任务调用Worker.setOutputData（），它接受一个Data对象;您可以通过观察任务的LiveData <WorkStatus>来获取输出。
+ - 要输出返回值，任务调用`Worker.setOutputData()`，它接受一个`Data`对象;可以通过观察任务的`LiveData <WorkStatus>`来获取输出。
 
 ```
-        WorkManager.getInstance()
-                ?.getStatusById(mathWork.id)
-                ?.observe(this, Observer { status ->
-                    if (status != null && status.state.isFinished) {
-                        val myResult = status.outputData.getInt(KEY_RESULT, -1)
-                        // ... do something with the result ...
-                    }
-                })
+WorkManager.getInstance()
+        ?.getStatusById(mathWork.id)
+        ?.observe(this, Observer { status ->
+            if (status != null && status.state.isFinished) {
+                val myResult = status.outputData.getInt(KEY_RESULT, -1)
+                // ... do something with the result ...
+            }
+        })
 ```
+
