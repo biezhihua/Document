@@ -23,21 +23,22 @@ class MyObserver : LifecycleObserver {
 
 class MainActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         runOnUiThread { startActivity(Intent(this, Main2Activity::class.java)) }
+
         lifecycle.addObserver(MyObserver())
     }
 
     override fun onStart() {
         super.onStart()
-        Log.d("biezhihua", "onStart 1 ")
+        Log.d("biezhihua", "onStart 1")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d("biezhihua", "onStop 1 ")
+        Log.d("biezhihua", "onStop 1")
     }
 }
