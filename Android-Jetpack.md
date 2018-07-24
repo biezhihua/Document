@@ -383,3 +383,117 @@ WorkManager.getInstance()
         })
 ```
 
+
+## LifeCycle 
+
+
+生命周期感知组件执行操作以响应另一个组件的生命周期状态的更改，例如Activity，Fragment。
+
+这些可感知生命周期的组件，可以帮助写出更易维护、更轻量的代码。
+
+一种常见的模式是在活动和片段的生命周期方法中实现依赖组件的操作。但是，这种模式导致代码组织不良以及错误的增加
+
+通过使用生命周期感知组件，可以将依赖组件的代码移出生命周期方法并移入组件本身。
+
+android.arch.lifecycle包提供了类和接口，使您可以构建生命周期感知组件 - 这些组件可以根据活动或片段的当前生命周期状态自动调整其行为。
+
+生命周期由操作系统或框架代码管理。它们是Android工作原理的核心，您的应用程序必须尊重它们。不这样做可能会触发内存泄漏甚至应用程序崩溃。
+
+```
+class MyLocationListener {
+    public MyLocationListener(Context context, Callback callback) {
+        // ...
+    }
+
+    void start() {
+        // connect to system location service
+    }
+
+    void stop() {
+        // disconnect from system location service
+    }
+}
+
+
+class MyActivity extends AppCompatActivity {
+    private MyLocationListener myLocationListener;
+
+    @Override
+    public void onCreate(...) {
+        myLocationListener = new MyLocationListener(this, (location) -> {
+            // update UI
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        myLocationListener.start();
+        // manage other components that need to respond
+        // to the activity lifecycle
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        myLocationListener.stop();
+        // manage other components that need to respond
+        // to the activity lifecycle
+    }
+}
+```
+
+即使这个示例看起来很好，但在真实的应用程序中，您最终会有太多的调用来管理UI和其他组件以响应生命周期的当前状态。
+管理多个组件会在生命周期方法中放置大量代码，例如onStart（）和onStop（），这使得它们难以维护。
+
+此外，无法保证组件在活动或片段停止之前启动。如果我们需要执行长时间运行的操作，尤其是onStart（）中的某些配置检查，则尤其如此。这可能会导致onStop（）方法在onStart（）之前完成的竞争条件，从而使组件保持活动时间超过其所需的时间。
+
+android.arch.lifecycle包提供了类和接口，可帮助您以弹性和隔离的方式解决这些问题。
+
+**Lifecycle** 
+
+Lifecycle是一个类，它包含有关组件生命周期状态的信息（如活动或片段），并允许其他对象观察此状态。
+
+Lifecycle使用两个主要枚举来跟踪其关联组件的生命周期状态：
+
+1) Event: 从框架和Lifecycle类调度的生命周期事件。这些事件映射到活动和片段中的回调事件。
+2) State： Lifecycle对象跟踪的组件的当前状态。
+
+```
+public class MyObserver implements LifecycleObserver {
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void connectListener() {
+        ...
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    public void disconnectListener() {
+        ...
+    }
+}
+
+myLifecycleOwner.getLifecycle().addObserver(new MyObserver());
+```
+
+在上面的示例中，myLifecycleOwner对象实现了LifecycleOwner接口，将在下一节中进行说明。
+
+
+### LifecycleOwner
+-----
+
+LifecycleOwner是一个单一的方法接口，表示该类具有生命周期。它有一个方法getLifecycle（），它必须由类实现.
+
+实现LifecycleObserver的组件与实现LifecycleOwner的组件无缝协作，因为所有者可以提供生命周期，观察者可以注册观察.
+
+
+如果库提供了需要使用Android生命周期的类，我们建议您使用生命周期感知组件。
+
+如果库提供了需要使用Android生命周期的类，我们建议您使用生命周期感知组件。您的库客户端可以轻松地集成这些组件，而无需在客户端进行手动生命周期管理
+
+### 可感知生命周期组件的最佳实践
+
+* 保持UI控制器（活动和片段）尽可能精简。他们不应该试图获取自己的数据;相反，使用ViewModel执行此操作，并观察LiveData对象以将更改反映回视图。
+* 尝试编写数据驱动的UI，其中UI控制器负责在数据更改时更新视图，或将用户操作通知给ViewModel。
+* 将您的数据逻辑放在ViewModel类中。 ViewModel应该充当UI控制器和应用程序其余部分之间的连接器。但要小心，ViewModel不负责获取数据（例如，从网络中获取）。相反，ViewModel应调用适当的组件来获取数据，然后将结果提供回UI控制器。
+* 如果您的UI很复杂，请考虑创建一个presenter类来处理UI修改。这可能是一项艰巨的任务，但它可以使您的UI组件更容易测试。
+* 避免在ViewModel中引用View或Activity上下文。如果ViewModel超过活动（在配置更改的情况下），您的活动将泄漏并且垃圾收集器未正确处理。
