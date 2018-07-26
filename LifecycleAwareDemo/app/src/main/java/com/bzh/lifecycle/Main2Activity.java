@@ -16,13 +16,13 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart() called");
+        Log.d(TAG, "onStart() called 2");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop() called");
+        Log.d(TAG, "onStop() called 2");
     }
 
     private static final String TAG = "biezhihua";
